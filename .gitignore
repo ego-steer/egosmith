@@ -1,0 +1,236 @@
+# =============================================================================
+# EgoSmith — data, weights, experiment artifacts (do not commit large files)
+# =============================================================================
+
+# deprecated code: fully untracked (see "Internal trees" section below)
+.codex
+
+# batch_infer default run dir and temp dir (HAWOR_BATCH_TMPDIR overrides the .tmp location)
+/batch_runs/
+/.tmp/
+/tmp_rerun_meta/
+/tmp_rerun_meta2/
+
+# weights & checkpoints (download on demand; the README has the scripts)
+/weights/
+/checkpoints/
+# any subdirectory (e.g. weights/checkpoints under thirdparty or experiment outputs)
+**/weights/
+**/checkpoints/
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+*.onnx
+*.engine
+*.trt
+
+# data and packaging
+/datasets/
+/dataset*/
+/dataset_tars/
+/dataset_untars/
+_DATA.zip
+*.zip
+/*.zip
+
+# pretrained / SMPL / MANO etc. (large)
+data/pretrain/*.pth
+data/pretrain/*.pth.tar
+data/smpl/SMPL_*.pkl
+*.pkl
+# _DATA = MANO assets (obtained separately from HaWoR's data download / the MANO site; not shipped)
+/_DATA/
+
+# experiments, logs, visualization exports
+experiments/
+logs/
+logs*
+eval_vis_mdslam/
+eval_vis_*/
+pred_vis/
+/eval*/
+/eval_log*/
+/train_ddp_process*
+/*_trainset_export/
+
+# examples and local videos
+# example_video/ holds the small tracked demo clip (video_0.mp4) — keep it tracked.
+*.mov
+videos.txt
+videos_10.txt
+_inspect_buildai0328/
+_inspect_bad_lowdim/
+batch_ui_runs/*
+/ui_preview_runs/
+
+# Internal trees not part of the public release (untracked; kept locally)
+/tests/
+/tools/
+/release/
+/deprecated/
+/docs/agents/
+/docs/video_part4_egosmith/
+# draft / internal docs (Chinese drafts; reference internal tools/* — not public)
+/docs/paper_appendix_pipeline.md
+/docs/pipeline_tech_blog_draft.md
+/docs/legacy_tools.md
+# agent instruction files (internal — never public)
+
+# =============================================================================
+# HaWoR base — materialized (as relative symlinks) from the pinned
+# thirdparty/hawor_upstream submodule via scripts/setup/fetch_hawor_base.sh. EgoSmith
+# uses HaWoR as a component; HaWoR-authored code is NOT redistributed (these are
+# pointers into the submodule, gitignored, never tracked — and no patches).
+# =============================================================================
+# top-level hawor package (utils/configs) — whole-dir symlink to the submodule
+/src/hawor
+/thirdparty/hawor/
+src/infiller/lib/
+src/lib/models/backbones/
+src/lib/models/components/
+src/lib/models/mano_wrapper.py
+src/lib/models/modules.py
+src/lib/models/hawor.py
+src/lib/core/constants.py
+src/lib/datasets/track_dataset.py
+src/lib/eval_utils/custom_utils.py
+src/lib/eval_utils/filling_utils.py
+src/lib/eval_utils/video_utils.py
+src/lib/pipeline/est_scale.py
+src/lib/pipeline/tools.py
+src/lib/utils/geometry.py
+src/lib/utils/imutils.py
+src/lib/vis/renderer.py
+src/lib/vis/renderer_world.py
+src/lib/vis/run_vis2.py
+src/lib/vis/tools.py
+src/lib/vis/viewer.py
+src/lib/vis/wham_tools/
+
+# third-party: large dirs or ones cloned separately (consistent with README / submodule policy)
+/thirdparty/detection
+/thirdparty/ZoeDepth
+# Patched install copy generated from thirdparty/chumpy_upstream by scripts/setup/fetch_chumpy.sh
+/thirdparty/chumpy/
+
+# Any4D (vendor tree): our injected scripts + local indexes, demo assets and batch logs are not tracked.
+# (the injected scripts leak internal dataset names/paths; the public export ships only Any4D's core)
+/thirdparty/Any4D/scripts/
+/thirdparty/Any4D/test.py
+/thirdparty/Any4D/video_list_*.txt
+/thirdparty/Any4D/run_*.sh
+/thirdparty/Any4D/flat_episode_list.json
+/thirdparty/Any4D/assets/
+/thirdparty/Any4D/scripts/vitra_check_errors.txt
+/thirdparty/Any4D/egodex_video_list_*.txt
+/thirdparty/Any4D/vitra_check_results/
+/thirdparty/Any4D/vitra_check_results_old/
+
+# DPVO (vendor tree): build artifacts, locally-extracted Eigen (*.pth already covered by the global rule)
+/thirdparty/DPVO/build/
+/thirdparty/DPVO/thirdparty/eigen-3.4.0/
+/thirdparty/DPVO/eigen-3.4.0.zip
+
+# other large in-repo paths
+hot3d_*/
+File/
+app_pytorch3d*
+
+# =============================================================================
+# environment & secrets (always verify these are not committed before publishing)
+# =============================================================================
+
+.env
+.env.*
+!.env.example
+*.pem
+secrets/
+credentials.json
+wandb/
+mlruns/
+.dvc/
+
+# =============================================================================
+# Python
+# =============================================================================
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+/build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+# note: do NOT ignore the repo-root lib/ (EgoSmith source)
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# virtual environments
+.venv/
+venv/
+ENV/
+env/
+.python-version
+
+# test / type / formatter caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# =============================================================================
+# Jupyter / IPython
+# =============================================================================
+
+.ipynb_checkpoints/
+*.ipynb
+profile_default/
+ipython_config.py
+
+# =============================================================================
+# IDE and editors
+# =============================================================================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# =============================================================================
+# operating system
+# =============================================================================
+
+**/.DS_Store
+Thumbs.db
+Desktop.ini
+
+# =============================================================================
+# runtime miscellany
+# =============================================================================
+
+vis.mp4
+imgui.ini
+/*.png
+
+# paper-figure asset extraction (local-only)
+tools/ops/extract_figure_assets.py
+docs/figure_assets/
